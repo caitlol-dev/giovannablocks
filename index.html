@@ -13,20 +13,19 @@
   <div class="page-cloud cloud-b" aria-hidden="true"></div>
 
   <main class="app-shell">
-    <header class="game-header">
-      <div class="brand-wrap">
-        <div class="brand-copy">
-          <p class="eyebrow">BLOQUINHOS FOFOS</p>
-          <h1>Giovanna <span>Blocks</span></h1>
-          <p class="subtitle">Complete linhas, faça combos e bata seu recorde.</p>
-        </div>
+    <section class="top-bar" aria-label="Cabeçalho do jogo">
+      <div class="top-card title-card">
+        <p class="top-card-label">Bloquinhos fofos</p>
       </div>
 
-      <div class="header-actions">
-        <button id="soundBtn" class="secondary-btn" type="button" aria-pressed="false">Som: ligado</button>
-        <button id="pauseBtn" class="secondary-btn" type="button">Pausar</button>
+      <div class="top-card action-card">
+        <button id="restartBtn" type="button" class="top-link-btn">Reiniciar partida</button>
       </div>
-    </header>
+
+      <div class="top-card menu-card">
+        <button id="menuBtn" class="menu-card-inner" type="button">MENU</button>
+      </div>
+    </section>
 
     <section class="game-layout" aria-label="Jogo Giovanna Blocks">
       <aside class="panel side-panel left-panel">
@@ -98,6 +97,20 @@
       </aside>
     </section>
 
+
+    <div id="menuModal" class="menu-modal" aria-hidden="true">
+      <div class="menu-dialog" role="dialog" aria-modal="true" aria-labelledby="menuModalTitle">
+        <p class="menu-kicker">GIOVANNA BLOCKS</p>
+        <h2 id="menuModalTitle">Menu</h2>
+        <p class="menu-description">A partida fica pausada enquanto o menu estiver aberto.</p>
+        <div class="menu-actions">
+          <button id="resumeBtn" class="primary-btn" type="button">Voltar ao jogo</button>
+          <button id="modalSoundBtn" class="secondary-btn" type="button" aria-pressed="false">Som: ligado</button>
+        </div>
+        <p class="menu-shortcut">Você também pode usar a tecla P para abrir ou fechar o menu.</p>
+      </div>
+    </div>
+
     <section class="mobile-controls" aria-label="Controles para celular">
       <button data-action="left" aria-label="Mover para esquerda">◀</button>
       <button data-action="rotate" aria-label="Girar peça">↻</button>
@@ -107,9 +120,8 @@
       <button data-action="hold" aria-label="Guardar peça">HOLD</button>
     </section>
 
-    <footer>
-      <span>Giovanna Blocks — feito com HTML, CSS e JavaScript.</span>
-      <button id="restartBtn" type="button" class="text-btn">Reiniciar partida</button>
+    <footer class="page-footer">
+      <span>Giovanna Blocks — tema fofo em HTML, CSS e JavaScript.</span>
     </footer>
   </main>
 

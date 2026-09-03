@@ -20,9 +20,11 @@ const overlayKicker = document.getElementById("overlayKicker");
 const overlayTitle = document.getElementById("overlayTitle");
 const overlayText = document.getElementById("overlayText");
 const startBtn = document.getElementById("startBtn");
-const pauseBtn = document.getElementById("pauseBtn");
 const restartBtn = document.getElementById("restartBtn");
-const soundBtn = document.getElementById("soundBtn");
+const menuBtn = document.getElementById("menuBtn");
+const menuModal = document.getElementById("menuModal");
+const resumeBtn = document.getElementById("resumeBtn");
+const modalSoundBtn = document.getElementById("modalSoundBtn");
 const boardFrame = document.getElementById("boardFrame");
 const impactFlash = document.getElementById("impactFlash");
 
@@ -511,8 +513,8 @@ function updateStats() {
 }
 
 function updateSoundButton() {
-  soundBtn.textContent = soundEnabled ? "Som: ligado" : "Som: desligado";
-  soundBtn.setAttribute("aria-pressed", String(!soundEnabled));
+  modalSoundBtn.textContent = soundEnabled ? "Som: ligado" : "Som: desligado";
+  modalSoundBtn.setAttribute("aria-pressed", String(!soundEnabled));
 }
 
 function resetGame() {
@@ -531,7 +533,7 @@ function resetGame() {
   particles = [];
   rowFlashes = [];
   lastTime = performance.now();
-  pauseBtn.textContent = "Pausar";
+  closeMenu(false);
   drawHold();
   updateStats();
   spawnPiece();
@@ -542,21 +544,37 @@ function startGame() {
   resetGame();
   running = true;
   hideOverlay();
+  closeMenu(false);
   if (animationId) cancelAnimationFrame(animationId);
   animationId = requestAnimationFrame(gameLoop);
 }
 
-function restartGame() { startGame(); }
+function restartGame() {
+  closeMenu(false);
+  startGame();
+}
+
+function openMenu() {
+  if (running && !gameOver) paused = true;
+  menuModal.classList.add("visible");
+  menuModal.setAttribute("aria-hidden", "false");
+  updateSoundButton();
+}
+
+function closeMenu(resumeGame = true) {
+  menuModal.classList.remove("visible");
+  menuModal.setAttribute("aria-hidden", "true");
+  if (resumeGame && running && !gameOver) {
+    paused = false;
+    lastTime = performance.now();
+  }
+}
 
 function togglePause() {
-  if (!running || gameOver) return;
-  paused = !paused;
-  pauseBtn.textContent = paused ? "Continuar" : "Pausar";
-  if (paused) {
-    showOverlay("PAUSADO", "Partida pausada", "Pressione P ou clique em continuar para voltar ao jogo.", "Continuar");
+  if (menuModal.classList.contains("visible")) {
+    closeMenu(true);
   } else {
-    hideOverlay();
-    lastTime = performance.now();
+    openMenu();
   }
 }
 
@@ -623,11 +641,12 @@ document.addEventListener("keydown", event => {
 
 startBtn.addEventListener("click", () => {
   ensureAudio();
-  if (paused && running) togglePause(); else startGame();
+  startGame();
 });
-pauseBtn.addEventListener("click", togglePause);
 restartBtn.addEventListener("click", restartGame);
-soundBtn.addEventListener("click", () => {
+menuBtn.addEventListener("click", togglePause);
+resumeBtn.addEventListener("click", () => closeMenu(true));
+modalSoundBtn.addEventListener("click", () => {
   soundEnabled = !soundEnabled;
   localStorage.setItem("giovannaBlocksSound", soundEnabled ? "on" : "off");
   updateSoundButton();
@@ -635,6 +654,9 @@ soundBtn.addEventListener("click", () => {
     ensureAudio();
     tone(620, .07, "sine", .02, 780);
   }
+});
+menuModal.addEventListener("click", event => {
+  if (event.target === menuModal) closeMenu(true);
 });
 
 document.querySelectorAll("[data-action]").forEach(button => {
@@ -646,7 +668,7 @@ document.querySelectorAll("[data-action]").forEach(button => {
 });
 
 window.addEventListener("blur", () => {
-  if (running && !paused && !gameOver) togglePause();
+  if (running && !paused && !gameOver && !menuModal.classList.contains("visible")) openMenu();
 });
 
 updateSoundButton();

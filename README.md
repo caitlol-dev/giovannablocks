@@ -17,7 +17,7 @@ Não precisa instalar nada e não utiliza backend.
 - `↓`: descer
 - `Espaço`: queda rápida
 - `C`: guardar/trocar peça
-- `P`: pausar
+- `P`: abrir/fechar o menu e pausar/continuar a partida
 
 ## Recursos
 
@@ -27,7 +27,7 @@ Não precisa instalar nada e não utiliza backend.
 - Ghost piece
 - Controles para celular
 - Sons produzidos com Web Audio API
-- Botão para ligar/desligar som
+- Menu de pausa com botão para voltar ao jogo e ligar/desligar o som
 - Efeito de impacto quando a peça encaixa
 - Impacto mais forte na queda rápida
 - Partículas e brilho ao completar linhas
