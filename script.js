@@ -555,7 +555,13 @@ function restartGame() {
 }
 
 function openMenu() {
-  if (running && !gameOver) paused = true;
+  if (running && !gameOver) {
+    paused = true;
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
+    }
+  }
   menuModal.classList.add("visible");
   menuModal.setAttribute("aria-hidden", "false");
   updateSoundButton();
@@ -567,6 +573,8 @@ function closeMenu(resumeGame = true) {
   if (resumeGame && running && !gameOver) {
     paused = false;
     lastTime = performance.now();
+    dropCounter = 0;
+    if (!animationId) animationId = requestAnimationFrame(gameLoop);
   }
 }
 
@@ -598,20 +606,29 @@ function showOverlay(kicker, title, text, buttonText) {
 function hideOverlay() { overlay.classList.remove("visible"); }
 
 function gameLoop(time = 0) {
-  if (!running && gameOver) { draw(); return; }
+  if (!running || gameOver || paused) {
+    animationId = null;
+    draw();
+    return;
+  }
+
   const delta = Math.min(45, time - lastTime || 0);
   lastTime = time;
+  dropCounter += delta;
 
-  if (!paused && running) {
-    dropCounter += delta;
-    if (dropCounter > getDropInterval()) {
-      softDrop(false);
-      dropCounter = 0;
-    }
-    updateEffects(delta);
+  if (dropCounter > getDropInterval()) {
+    softDrop(false);
+    dropCounter = 0;
   }
+
+  updateEffects(delta);
   draw();
-  animationId = requestAnimationFrame(gameLoop);
+
+  if (running && !paused && !gameOver) {
+    animationId = requestAnimationFrame(gameLoop);
+  } else {
+    animationId = null;
+  }
 }
 
 function handleAction(action) {

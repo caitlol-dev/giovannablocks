@@ -68,22 +68,24 @@ button { color: inherit; }
 
 .app-shell {
   position: relative;
-  width: min(1160px, calc(100% - 36px));
-  margin: 24px auto;
-  padding: 24px;
-  border: 2px solid #63c5ed;
-  border-radius: 34px;
-  background: rgba(255,255,255,.34);
-  box-shadow: 0 8px 0 rgba(255,255,255,.48) inset, var(--shadow);
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 26px clamp(18px, 4vw, 68px) 22px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .top-bar {
   display: grid;
-  grid-template-columns: 330px 340px 300px;
-  justify-content: center;
-  gap: 28px;
+  grid-template-columns: minmax(280px, 1fr) 360px minmax(250px, .9fr);
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto 22px;
+  gap: clamp(18px, 2.7vw, 42px);
   align-items: stretch;
-  margin-bottom: 20px;
 }
 
 .top-card {
@@ -144,10 +146,12 @@ button { color: inherit; }
 
 .game-layout {
   display: grid;
-  grid-template-columns: 330px 340px 300px;
-  justify-content: center;
+  grid-template-columns: minmax(280px, 1fr) 360px minmax(250px, .9fr);
+  width: 100%;
+  max-width: 1420px;
+  margin: 0 auto;
   align-items: start;
-  gap: 28px;
+  gap: clamp(18px, 2.7vw, 42px);
 }
 
 .panel,
@@ -226,7 +230,7 @@ button { color: inherit; }
 .board-wrap { display: flex; justify-content: center; }
 .board-frame {
   position: relative;
-  width: 340px;
+  width: 360px;
   padding: 14px;
   padding-top: 34px;
   border: 8px solid rgba(245,252,255,.94);
@@ -336,7 +340,6 @@ kbd {
   place-items: center;
   border-radius: 22px;
   background: rgba(211, 241, 248, .72);
-  backdrop-filter: blur(7px);
   opacity: 0;
   pointer-events: none;
   transition: opacity .2s ease;
@@ -392,8 +395,7 @@ kbd {
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgba(158, 210, 226, .42);
-  backdrop-filter: blur(8px);
+  background: rgba(194, 232, 242, .72);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -448,28 +450,30 @@ kbd {
 .page-footer {
   display: flex;
   justify-content: center;
-  margin-top: 18px;
+  width: 100%;
+  max-width: 1420px;
+  margin: 18px auto 0;
   color: var(--muted);
   font-size: .76rem;
 }
 
 @media (max-width: 1100px) {
-  .app-shell { width: min(1040px, calc(100% - 24px)); }
+  .app-shell { padding-inline: 20px; }
   .top-bar,
-  .game-layout { grid-template-columns: 300px 330px 270px; gap: 18px; }
-  .board-frame { width: 330px; }
+  .game-layout { grid-template-columns: 290px 340px minmax(240px, 1fr); gap: 18px; }
+  .board-frame { width: 340px; }
 }
 
 @media (max-width: 960px) {
   .top-bar { grid-template-columns: 1fr 1fr; }
   .menu-card { grid-column: 1 / -1; }
-  .game-layout { grid-template-columns: 1fr 340px; }
+  .game-layout { grid-template-columns: 1fr 350px; }
   .right-panel { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1.3fr; }
   .next-card, .hold-card, .controls-card { min-height: 190px; }
 }
 
 @media (max-width: 720px) {
-  .app-shell { width: min(100% - 12px, 500px); margin: 8px auto; padding: 12px; border-radius: 24px; }
+  .app-shell { width: 100%; margin: 0; padding: 10px; }
   .top-bar { grid-template-columns: 1fr; gap: 10px; }
   .menu-card { grid-column: auto; }
   .title-card { justify-items: center; padding-left: 18px; }
@@ -481,7 +485,7 @@ kbd {
   .left-panel { order: 2; width: 100%; min-height: 0; }
   .right-panel { order: 3; width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
   .controls-card { grid-column: 1 / -1; min-height: 0; }
-  .board-frame { width: min(100%, 340px); }
+  .board-frame { width: min(100%, 350px); }
   .mobile-controls { display: grid; }
 }
 
