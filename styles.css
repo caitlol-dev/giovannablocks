@@ -497,3 +497,306 @@ kbd {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
 }
+
+/* ==============================
+   LAYOUT MOBILE DE JOGO
+   ============================== */
+.mobile-brand,
+.mobile-restart { display: none; }
+
+@media (max-width: 720px) {
+  :root {
+    --mobile-board-width: min(88vw, max(200px, calc((100dvh - 265px) / 2)));
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    overscroll-behavior: none;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  body::before,
+  body::after,
+  .page-cloud,
+  .page-footer { display: none; }
+
+  .app-shell {
+    min-height: 100dvh;
+    padding: max(7px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
+  }
+
+  /* Cabeçalho compacto, feito para uma mão. */
+  .top-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 50px 82px;
+    gap: 7px;
+    width: min(100%, 430px);
+    margin: 0 auto 7px;
+  }
+
+  .top-card {
+    min-height: 48px;
+    padding: 5px 8px;
+    border-radius: 17px;
+    box-shadow: 0 8px 20px rgba(97, 175, 199, .11);
+  }
+
+  .title-card {
+    justify-items: start;
+    padding-left: 14px;
+  }
+
+  .desktop-brand,
+  .desktop-restart { display: none; }
+  .mobile-brand,
+  .mobile-restart { display: inline; }
+
+  .top-card-label {
+    font-size: .94rem;
+    letter-spacing: .045em;
+    text-transform: none;
+    white-space: nowrap;
+  }
+
+  .action-card { display: grid; }
+  .top-link-btn {
+    width: 100%;
+    height: 38px;
+    padding: 0;
+    border-radius: 13px;
+    font-size: 1.45rem;
+    text-decoration: none;
+  }
+
+  .menu-card {
+    grid-column: auto;
+    padding: 4px;
+  }
+
+  .menu-card-inner {
+    min-height: 38px;
+    border-radius: 13px;
+    font-size: .84rem;
+    letter-spacing: .04em;
+    box-shadow: inset -3px -2px 0 rgba(139,198,216,.22), inset 0 0 0 2px rgba(255,255,255,.55);
+  }
+
+  /* HUD mobile: estatísticas e previews ficam acima do tabuleiro. */
+  .game-layout {
+    display: grid;
+    grid-template-columns: 1.12fr .88fr;
+    grid-template-areas:
+      "stats previews"
+      "board board";
+    align-items: stretch;
+    gap: 7px;
+    width: min(100%, 430px);
+    margin: 0 auto;
+  }
+
+  .left-panel {
+    grid-area: stats;
+    order: initial;
+    width: auto;
+    min-height: 0;
+  }
+
+  .right-panel {
+    grid-area: previews;
+    order: initial;
+    width: auto;
+  }
+
+  .board-wrap {
+    grid-area: board;
+    order: initial;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .side-panel {
+    padding: 5px;
+    border-width: 3px;
+    border-radius: 18px;
+    box-shadow: 0 7px 18px rgba(97, 175, 199, .1);
+  }
+
+  .mascot-card,
+  .controls-card,
+  .hold-card .hint { display: none; }
+
+  .stats-block {
+    display: grid;
+    grid-template-columns: 1.3fr .9fr;
+    gap: 4px;
+    height: 100%;
+  }
+
+  .stat-card,
+  .stat-card.compact {
+    min-width: 0;
+    margin: 0;
+    padding: 6px 8px;
+    gap: 2px;
+    border-radius: 13px;
+  }
+
+  .stat-highlight { grid-row: 1; }
+  .stats-block > .stat-card:nth-child(2) { grid-row: 2; }
+  .stat-grid {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .stat-card span { font-size: .57rem; }
+  .stat-card strong { font-size: 1rem; }
+  .stat-card.compact strong { font-size: .87rem; }
+
+  .right-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    padding: 5px;
+  }
+
+  .mini-card,
+  .next-card,
+  .hold-card {
+    min-height: 0;
+    margin: 0;
+    padding: 4px;
+    border-radius: 13px;
+  }
+
+  .mini-card-title {
+    margin-bottom: 0;
+    font-size: .48rem;
+    letter-spacing: .06em;
+  }
+
+  #nextCanvas,
+  #holdCanvas {
+    width: 52px;
+    height: 52px;
+    border-radius: 9px;
+  }
+
+  /* O tabuleiro é dimensionado pela altura disponível da tela. */
+  .board-frame {
+    width: calc(var(--mobile-board-width) + 30px);
+    padding: 9px;
+    padding-top: 26px;
+    border-width: 5px;
+    border-radius: 24px;
+    box-shadow: 0 9px 24px rgba(97, 175, 199, .14);
+  }
+
+  .board-ribbon {
+    top: 7px;
+    font-size: .48rem;
+  }
+
+  #gameCanvas {
+    width: var(--mobile-board-width);
+    border-radius: 16px;
+    touch-action: none;
+  }
+
+  .impact-flash,
+  .overlay {
+    inset: 26px 9px 9px;
+    border-radius: 16px;
+  }
+
+  .overlay-card {
+    width: min(84%, 225px);
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .overlay-kicker { font-size: .55rem; }
+  .overlay-card h2 { margin-bottom: 5px; font-size: 1.02rem; }
+  .overlay-card p:not(.overlay-kicker) { margin-bottom: 11px; font-size: .7rem; line-height: 1.35; }
+  .overlay-card .primary-btn { padding: 9px 11px; font-size: .78rem; }
+
+  /* Controle tipo gamepad, sempre ao alcance dos polegares. */
+  .mobile-controls {
+    position: sticky;
+    bottom: max(6px, env(safe-area-inset-bottom));
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    width: min(calc(100% - 4px), 430px);
+    max-width: none;
+    margin: 7px auto 0;
+    padding: 7px;
+    border: 2px solid rgba(255,255,255,.78);
+    border-radius: 22px;
+    background: rgba(223, 246, 251, .94);
+    box-shadow: 0 10px 28px rgba(73, 155, 183, .18);
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .mobile-controls button {
+    min-height: 46px;
+    padding: 0 8px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.93);
+    box-shadow: inset 0 -3px 0 rgba(104, 181, 207, .12);
+    font-size: 1rem;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-controls button[data-action="rotate"] {
+    background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(239,221,241,.95));
+  }
+
+  .mobile-controls button[data-action="drop"] {
+    color: #fff;
+    border: 0;
+    background: linear-gradient(135deg, #72c9e4, #efa2c3);
+  }
+
+  .mobile-controls button[data-action="hold"] {
+    color: #6b9fb2;
+    background: linear-gradient(135deg, #f8fdff, #e8f8fc);
+  }
+
+  /* Menu otimizado para telas estreitas. */
+  .menu-modal { padding: 14px; }
+  .menu-dialog {
+    width: min(330px, 100%);
+    padding: 22px 18px;
+    border-radius: 25px;
+  }
+  .menu-dialog h2 { font-size: 1.6rem; }
+  .menu-description { margin-bottom: 14px; }
+  .menu-shortcut { display: none; }
+}
+
+@media (max-width: 350px) {
+  :root { --mobile-board-width: min(86vw, max(190px, calc((100dvh - 255px) / 2))); }
+  .top-bar { grid-template-columns: minmax(0,1fr) 45px 72px; }
+  .top-card-label { font-size: .82rem; }
+  .mobile-controls button { min-height: 42px; }
+}
+
+@media (max-width: 720px) and (max-height: 620px) {
+  :root { --mobile-board-width: min(70vw, max(170px, calc((100dvh - 225px) / 2))); }
+  .top-bar { margin-bottom: 5px; }
+  .top-card { min-height: 42px; }
+  .game-layout { gap: 5px; }
+  .mobile-controls { margin-top: 5px; padding: 5px; }
+  .mobile-controls button { min-height: 38px; }
+}

@@ -1,43 +1,23 @@
 # Giovanna Blocks
 
-Jogo de blocos para navegador com uma temática pastel em azul, branco e rosa.
-
-## Como abrir
-
-1. Extraia o arquivo ZIP.
-2. Abra `index.html` no navegador.
-3. Clique em **Jogar**.
-
-Não precisa instalar nada e não utiliza backend.
-
-## Controles
-
-- `←` / `→`: mover
-- `↑`: girar
-- `↓`: descer
-- `Espaço`: queda rápida
-- `C`: guardar/trocar peça
-- `P`: abrir/fechar o menu e pausar/continuar a partida
+Jogo de blocos estilo Tetris feito em HTML, CSS e JavaScript, com visual pastel inspirado na imagem-tema usada no projeto.
 
 ## Recursos
 
-- Pontuação e níveis
-- Recorde salvo no navegador
-- Próxima peça e peça guardada
-- Ghost piece
-- Controles para celular
-- Sons produzidos com Web Audio API
-- Menu de pausa com botão para voltar ao jogo e ligar/desligar o som
-- Efeito de impacto quando a peça encaixa
-- Impacto mais forte na queda rápida
-- Partículas e brilho ao completar linhas
-- Layout responsivo
+- Layout desktop responsivo.
+- Layout próprio para celular, pensado para jogar em tela vertical.
+- Tabuleiro dimensionado automaticamente de acordo com a altura do aparelho.
+- HUD compacto com pontuação, recorde, nível, linhas, próxima peça e peça guardada.
+- Controles grandes para os polegares.
+- Segurar esquerda, direita ou descer repete o movimento automaticamente.
+- Gestos no próprio tabuleiro no celular: toque para girar, arraste para os lados para mover, para baixo para descer e para cima para queda rápida.
+- Menu que pausa a partida sem continuar renderizando o jogo ao fundo.
+- Som ligado/desligado pelo menu.
+- Pontuação e recorde salvos no navegador.
+- Efeitos visuais e sons de encaixe/linhas.
 
-## Arquivos
+## Como executar
 
-- `index.html`: estrutura da página
-- `styles.css`: visual e animações
-- `script.js`: jogo, efeitos e sons
-- `assets/giovanna-theme.png`: imagem usada na temática
+Extraia o ZIP e abra `index.html` no navegador. Não precisa de backend nem Python.
 
-Pode ser publicado diretamente no GitHub Pages, Vercel, Netlify ou qualquer hospedagem estática.
+O projeto também pode ser publicado diretamente na Vercel, Netlify ou GitHub Pages.

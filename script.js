@@ -676,13 +676,76 @@ menuModal.addEventListener("click", event => {
   if (event.target === menuModal) closeMenu(true);
 });
 
+// Controles mobile: toque imediato + repetição ao segurar esquerda/direita/baixo.
+let mobileRepeatDelay = null;
+let mobileRepeatInterval = null;
+
+function stopMobileRepeat() {
+  if (mobileRepeatDelay) clearTimeout(mobileRepeatDelay);
+  if (mobileRepeatInterval) clearInterval(mobileRepeatInterval);
+  mobileRepeatDelay = null;
+  mobileRepeatInterval = null;
+}
+
 document.querySelectorAll("[data-action]").forEach(button => {
   const action = button.dataset.action;
+  const repeatable = ["left", "right", "down"].includes(action);
+
   button.addEventListener("pointerdown", event => {
     event.preventDefault();
+    stopMobileRepeat();
     handleAction(action);
+
+    if (repeatable) {
+      mobileRepeatDelay = setTimeout(() => {
+        mobileRepeatInterval = setInterval(() => handleAction(action), action === "down" ? 70 : 95);
+      }, 230);
+    }
+  });
+
+  ["pointerup", "pointercancel", "pointerleave"].forEach(type => {
+    button.addEventListener(type, stopMobileRepeat);
   });
 });
+
+// Gestos diretamente no tabuleiro para jogar com uma mão:
+// toque = girar, arrastar para os lados = mover, para baixo = descer, para cima = queda rápida.
+let boardGesture = null;
+canvas.addEventListener("pointerdown", event => {
+  if (!window.matchMedia("(max-width: 720px)").matches || !canPlay()) return;
+  event.preventDefault();
+  canvas.setPointerCapture?.(event.pointerId);
+  boardGesture = { x: event.clientX, y: event.clientY, id: event.pointerId };
+});
+
+canvas.addEventListener("pointerup", event => {
+  if (!boardGesture || boardGesture.id !== event.pointerId || !canPlay()) return;
+  event.preventDefault();
+
+  const dx = event.clientX - boardGesture.x;
+  const dy = event.clientY - boardGesture.y;
+  const absX = Math.abs(dx);
+  const absY = Math.abs(dy);
+  boardGesture = null;
+
+  if (absX < 18 && absY < 18) {
+    rotatePiece();
+  } else if (absX > absY) {
+    const steps = Math.max(1, Math.min(4, Math.round(absX / 38)));
+    const dir = dx > 0 ? 1 : -1;
+    for (let i = 0; i < steps; i++) movePiece(dir);
+  } else if (dy > 24) {
+    const steps = Math.max(1, Math.min(4, Math.round(absY / 42)));
+    const gesturePiece = active;
+    for (let i = 0; i < steps && canPlay() && active === gesturePiece; i++) softDrop(true);
+  } else if (dy < -34) {
+    hardDrop();
+  }
+
+  draw();
+});
+
+canvas.addEventListener("pointercancel", () => { boardGesture = null; });
 
 window.addEventListener("blur", () => {
   if (running && !paused && !gameOver && !menuModal.classList.contains("visible")) openMenu();
