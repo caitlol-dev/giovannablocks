@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#cceff7" />
+  <meta id="themeColorMeta" name="theme-color" content="#cceff7" />
   <meta name="description" content="Giovanna Blocks, um jogo de blocos em estilo pastel feito com HTML, CSS e JavaScript." />
   <title>Giovanna Blocks</title>
+  <script>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem("giovannaBlocksTheme") || "light";
+    } catch (_) {
+      document.documentElement.dataset.theme = "light";
+    }
+  </script>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -106,6 +113,7 @@
         <div class="menu-actions">
           <button id="resumeBtn" class="primary-btn" type="button">Voltar ao jogo</button>
           <button id="modalSoundBtn" class="secondary-btn" type="button" aria-pressed="false">Som: ligado</button>
+          <button id="themeBtn" class="secondary-btn theme-toggle-btn" type="button" aria-pressed="false">Tema: claro</button>
         </div>
         <p class="menu-shortcut">Você também pode usar a tecla P para abrir ou fechar o menu.</p>
       </div>

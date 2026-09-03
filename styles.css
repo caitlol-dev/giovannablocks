@@ -800,3 +800,209 @@ kbd {
   .mobile-controls { margin-top: 5px; padding: 5px; }
   .mobile-controls button { min-height: 38px; }
 }
+
+/* =========================
+   Tema escuro
+   Mantém a identidade pastel azul + rosa do Giovanna Blocks,
+   mas troca os fundos claros por azul-petróleo profundo.
+   ========================= */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --sky: #163743;
+  --sky-2: #0f2933;
+  --blue: #74cee6;
+  --blue-strong: #5fc0dc;
+  --pink: #ef9fc2;
+  --pink-strong: #f1a8c7;
+  --white: #eefbff;
+  --ink: #b9e4ef;
+  --muted: #8bb6c2;
+  --panel: rgba(25, 58, 70, 0.92);
+  --border: rgba(116, 206, 230, 0.22);
+  --shadow: 0 18px 40px rgba(2, 15, 21, 0.3);
+}
+
+html[data-theme="dark"] body {
+  background:
+    radial-gradient(circle at 12px 12px, rgba(134, 219, 237, .07) 0 2px, transparent 2.5px) 0 0 / 22px 22px,
+    linear-gradient(180deg, #163743 0%, #0d2731 100%);
+}
+
+html[data-theme="dark"] body::before,
+html[data-theme="dark"] body::after {
+  color: rgba(117, 205, 226, 0.09);
+}
+
+html[data-theme="dark"] .page-cloud {
+  background: rgba(95, 173, 193, .12);
+}
+
+html[data-theme="dark"] .top-card {
+  border-color: rgba(117, 205, 226, .13);
+  background: rgba(24, 57, 69, .92);
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="dark"] .top-card-label {
+  color: #8bd9ec;
+  text-shadow: 0 0 12px rgba(100, 205, 230, .16);
+}
+
+html[data-theme="dark"] .top-link-btn {
+  color: #83d2e7;
+}
+
+html[data-theme="dark"] .top-link-btn:hover {
+  background: rgba(101, 198, 221, .1);
+}
+
+html[data-theme="dark"] .menu-card-inner {
+  color: #e9fbff;
+  background: linear-gradient(135deg, #367d91, #4e9fb5);
+  box-shadow: inset -6px -4px 0 rgba(13, 51, 62, .24), inset 0 0 0 3px rgba(194, 239, 248, .12);
+}
+
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .board-frame {
+  background: rgba(22, 53, 65, .94);
+  box-shadow: var(--shadow);
+}
+
+html[data-theme="dark"] .side-panel {
+  border-color: rgba(39, 82, 96, .96);
+  background:
+    radial-gradient(circle at 12px 12px, rgba(131, 216, 235, .06) 0 1.8px, transparent 2.5px) 0 0 / 22px 22px,
+    linear-gradient(180deg, #1b414e 0%, #143541 100%);
+}
+
+html[data-theme="dark"] .mascot-card {
+  background: #244c58;
+  border-color: rgba(123, 209, 229, .18);
+}
+
+html[data-theme="dark"] .mascot-card img {
+  filter: brightness(.88) saturate(.92);
+}
+
+html[data-theme="dark"] .mascot-bubble,
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .mini-card,
+html[data-theme="dark"] .controls-card {
+  border-color: rgba(126, 211, 231, .14);
+  background: rgba(28, 63, 75, .9);
+  box-shadow: 0 8px 20px rgba(3, 20, 27, .16);
+}
+
+html[data-theme="dark"] .stat-card span,
+html[data-theme="dark"] .hint,
+html[data-theme="dark"] .control-row span,
+html[data-theme="dark"] .page-footer {
+  color: #8ebbc7;
+}
+
+html[data-theme="dark"] .stat-card strong,
+html[data-theme="dark"] .mini-card-title,
+html[data-theme="dark"] .controls-card h2 {
+  color: #79d0e6;
+}
+
+html[data-theme="dark"] .stat-highlight {
+  background: linear-gradient(135deg, rgba(49, 105, 121, .95), rgba(38, 80, 95, .96));
+}
+
+html[data-theme="dark"] kbd {
+  color: #a9dfea;
+  border-color: rgba(123, 207, 226, .22);
+  background: #193d49;
+  box-shadow: inset 0 -2px 0 rgba(5, 26, 33, .35);
+}
+
+html[data-theme="dark"] .board-frame {
+  border-color: rgba(46, 91, 105, .96);
+  background: linear-gradient(180deg, #1d4654, #153743);
+}
+
+html[data-theme="dark"] .board-ribbon {
+  color: #a8e2ee;
+}
+
+html[data-theme="dark"] #gameCanvas,
+html[data-theme="dark"] #nextCanvas,
+html[data-theme="dark"] #holdCanvas {
+  border-color: rgba(118, 206, 226, .18);
+  background: #173844;
+}
+
+html[data-theme="dark"] .overlay {
+  background: rgba(8, 30, 38, .5);
+}
+
+html[data-theme="dark"] .overlay-card {
+  border-color: rgba(162, 225, 239, .14);
+  background: rgba(24, 57, 69, .97);
+  box-shadow: 0 18px 40px rgba(1, 14, 20, .35);
+}
+
+html[data-theme="dark"] .overlay-card h2,
+html[data-theme="dark"] .menu-dialog h2 {
+  color: #7bd1e7;
+}
+
+html[data-theme="dark"] .overlay-card p:not(.overlay-kicker),
+html[data-theme="dark"] .menu-description {
+  color: #9bc2cc;
+}
+
+html[data-theme="dark"] .secondary-btn {
+  color: #a8d7e2;
+  border-color: rgba(119, 207, 227, .2);
+  background: rgba(24, 58, 70, .95);
+}
+
+html[data-theme="dark"] .secondary-btn:hover {
+  background: rgba(32, 73, 86, .98);
+}
+
+html[data-theme="dark"] .theme-toggle-btn[aria-pressed="true"] {
+  color: #f4c2d8;
+  border-color: rgba(239, 159, 194, .28);
+  background: linear-gradient(135deg, rgba(35, 71, 83, .98), rgba(75, 55, 76, .92));
+}
+
+html[data-theme="dark"] .menu-modal {
+  background: rgba(6, 24, 31, .78);
+}
+
+html[data-theme="dark"] .menu-dialog {
+  border-color: rgba(139, 218, 235, .14);
+  background:
+    radial-gradient(circle at 10px 10px, rgba(116,206,230,.08) 0 1.6px, transparent 2px) 0 0 / 22px 22px,
+    rgba(20, 49, 60, .985);
+  box-shadow: 0 26px 70px rgba(0, 10, 15, .42);
+}
+
+html[data-theme="dark"] .menu-shortcut {
+  color: #789faa;
+}
+
+html[data-theme="dark"] .mobile-controls {
+  border-color: rgba(132, 215, 234, .12);
+  background: rgba(17, 45, 55, .96);
+  box-shadow: 0 10px 28px rgba(0, 13, 19, .34);
+}
+
+html[data-theme="dark"] .mobile-controls button {
+  color: #a5d5e0;
+  border-color: rgba(119, 205, 225, .18);
+  background: rgba(27, 62, 74, .96);
+  box-shadow: inset 0 -3px 0 rgba(4, 27, 35, .24);
+}
+
+html[data-theme="dark"] .mobile-controls button[data-action="rotate"] {
+  background: linear-gradient(135deg, rgba(28, 64, 76, .98), rgba(68, 53, 72, .96));
+}
+
+html[data-theme="dark"] .mobile-controls button[data-action="hold"] {
+  color: #a2d5df;
+  background: linear-gradient(135deg, #1b414e, #173844);
+}

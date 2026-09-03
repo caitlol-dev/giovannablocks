@@ -25,6 +25,8 @@ const menuBtn = document.getElementById("menuBtn");
 const menuModal = document.getElementById("menuModal");
 const resumeBtn = document.getElementById("resumeBtn");
 const modalSoundBtn = document.getElementById("modalSoundBtn");
+const themeBtn = document.getElementById("themeBtn");
+const themeColorMeta = document.getElementById("themeColorMeta");
 const boardFrame = document.getElementById("boardFrame");
 const impactFlash = document.getElementById("impactFlash");
 
@@ -72,6 +74,7 @@ let rowFlashes = [];
 // Áudio via Web Audio API: nenhum arquivo externo é necessário.
 let audioContext = null;
 let soundEnabled = localStorage.getItem("giovannaBlocksSound") !== "off";
+let currentTheme = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
 
 function ensureAudio() {
   if (!soundEnabled) return null;
@@ -388,15 +391,36 @@ function drawCell(context, x, y, size, color, alpha = 1, inset = 1) {
   context.restore();
 }
 
+function getCanvasTheme() {
+  if (currentTheme === "dark") {
+    return {
+      boardTop: "#183643",
+      boardBottom: "#102b36",
+      boardGrid: "rgba(135, 218, 235, .12)",
+      previewTop: "rgba(27, 59, 71, .98)",
+      previewBottom: "rgba(17, 43, 53, .98)"
+    };
+  }
+
+  return {
+    boardTop: "#f6fdff",
+    boardBottom: "#eaf9fd",
+    boardGrid: "rgba(92,183,211,.12)",
+    previewTop: "rgba(245,253,255,.95)",
+    previewBottom: "rgba(232,248,252,.9)"
+  };
+}
+
 function drawBoardBackground() {
+  const theme = getCanvasTheme();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-  grad.addColorStop(0, "#f6fdff");
-  grad.addColorStop(1, "#eaf9fd");
+  grad.addColorStop(0, theme.boardTop);
+  grad.addColorStop(1, theme.boardBottom);
   ctx.fillStyle = grad;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.strokeStyle = "rgba(92,183,211,.12)";
+  ctx.strokeStyle = theme.boardGrid;
   ctx.lineWidth = 1;
   for (let x = 0; x <= COLS; x++) {
     ctx.beginPath(); ctx.moveTo(x * BLOCK + .5, 0); ctx.lineTo(x * BLOCK + .5, ROWS * BLOCK); ctx.stroke();
@@ -470,10 +494,11 @@ function draw() {
 }
 
 function drawPreview(context, type, canvasEl) {
+  const theme = getCanvasTheme();
   context.clearRect(0, 0, canvasEl.width, canvasEl.height);
   const bg = context.createLinearGradient(0, 0, 0, canvasEl.height);
-  bg.addColorStop(0, "rgba(245,253,255,.95)");
-  bg.addColorStop(1, "rgba(232,248,252,.9)");
+  bg.addColorStop(0, theme.previewTop);
+  bg.addColorStop(1, theme.previewBottom);
   context.fillStyle = bg;
   context.fillRect(0, 0, canvasEl.width, canvasEl.height);
   if (!type) return;
@@ -515,6 +540,32 @@ function updateStats() {
 function updateSoundButton() {
   modalSoundBtn.textContent = soundEnabled ? "Som: ligado" : "Som: desligado";
   modalSoundBtn.setAttribute("aria-pressed", String(!soundEnabled));
+}
+
+function updateThemeButton() {
+  const isDark = currentTheme === "dark";
+  themeBtn.textContent = isDark ? "Tema: escuro" : "Tema: claro";
+  themeBtn.setAttribute("aria-pressed", String(isDark));
+  themeBtn.setAttribute("aria-label", isDark ? "Trocar para tema claro" : "Trocar para tema escuro");
+}
+
+function applyTheme(theme, save = true) {
+  currentTheme = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = currentTheme;
+
+  if (themeColorMeta) {
+    themeColorMeta.setAttribute("content", currentTheme === "dark" ? "#102b36" : "#cceff7");
+  }
+
+  if (save) localStorage.setItem("giovannaBlocksTheme", currentTheme);
+  updateThemeButton();
+  draw();
+  drawNext();
+  drawHold();
+}
+
+function toggleTheme() {
+  applyTheme(currentTheme === "dark" ? "light" : "dark");
 }
 
 function resetGame() {
@@ -565,6 +616,7 @@ function openMenu() {
   menuModal.classList.add("visible");
   menuModal.setAttribute("aria-hidden", "false");
   updateSoundButton();
+  updateThemeButton();
 }
 
 function closeMenu(resumeGame = true) {
@@ -672,6 +724,9 @@ modalSoundBtn.addEventListener("click", () => {
     tone(620, .07, "sine", .02, 780);
   }
 });
+
+themeBtn.addEventListener("click", toggleTheme);
+
 menuModal.addEventListener("click", event => {
   if (event.target === menuModal) closeMenu(true);
 });
@@ -751,7 +806,9 @@ window.addEventListener("blur", () => {
   if (running && !paused && !gameOver && !menuModal.classList.contains("visible")) openMenu();
 });
 
+applyTheme(currentTheme, false);
 updateSoundButton();
+updateThemeButton();
 updateStats();
 drawNext();
 drawHold();
