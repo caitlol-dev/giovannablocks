@@ -1,35 +1,43 @@
-# Neon Blocks
+# Giovanna Blocks
 
-Jogo de blocos inspirado em Tetris, feito com HTML, CSS e JavaScript puro.
+Jogo de blocos para navegador com uma temática pastel em azul, branco e rosa.
 
-## Como executar
-
-Não é necessário instalar nada e não existe backend.
+## Como abrir
 
 1. Extraia o arquivo ZIP.
-2. Abra `index.html` em um navegador moderno.
+2. Abra `index.html` no navegador.
+3. Clique em **Jogar**.
 
-Também é possível publicar a pasta diretamente em serviços como Vercel, Netlify ou GitHub Pages.
+Não precisa instalar nada e não utiliza backend.
 
 ## Controles
 
-- ← / →: mover
-- ↑: girar
-- ↓: descer
-- Espaço: queda rápida
-- C: guardar/trocar peça
-- P: pausar/continuar
+- `←` / `→`: mover
+- `↑`: girar
+- `↓`: descer
+- `Espaço`: queda rápida
+- `C`: guardar/trocar peça
+- `P`: pausar
 
 ## Recursos
 
-- Sistema de pontuação
-- Recorde salvo no navegador com `localStorage`
-- Níveis e aumento progressivo de velocidade
-- Contagem de linhas
-- Próxima peça
-- Peça guardada (Hold)
-- Ghost piece indicando onde a peça cairá
-- Pausa e reinício
+- Pontuação e níveis
+- Recorde salvo no navegador
+- Próxima peça e peça guardada
+- Ghost piece
 - Controles para celular
+- Sons produzidos com Web Audio API
+- Botão para ligar/desligar som
+- Efeito de impacto quando a peça encaixa
+- Impacto mais forte na queda rápida
+- Partículas e brilho ao completar linhas
 - Layout responsivo
-- 7-bag randomizer para distribuição equilibrada das peças
+
+## Arquivos
+
+- `index.html`: estrutura da página
+- `styles.css`: visual e animações
+- `script.js`: jogo, efeitos e sons
+- `assets/giovanna-theme.png`: imagem usada na temática
+
+Pode ser publicado diretamente no GitHub Pages, Vercel, Netlify ou qualquer hospedagem estática.
