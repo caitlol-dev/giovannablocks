@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Neon Blocks</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="game-header">
+      <div>
+        <p class="eyebrow">JOGO DE BLOCOS</p>
+        <h1>NEON BLOCKS</h1>
+      </div>
+      <button id="pauseBtn" class="secondary-btn" type="button">Pausar</button>
+    </header>
+
+    <section class="game-layout" aria-label="Jogo Neon Blocks">
+      <aside class="panel side-panel left-panel">
+        <div class="stat-card">
+          <span>Pontuação</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Recorde</span>
+          <strong id="highScore">0</strong>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card compact">
+            <span>Nível</span>
+            <strong id="level">1</strong>
+          </div>
+          <div class="stat-card compact">
+            <span>Linhas</span>
+            <strong id="lines">0</strong>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-card-title">Guardada</div>
+          <canvas id="holdCanvas" width="120" height="120" aria-label="Peça guardada"></canvas>
+          <span class="hint">C para guardar</span>
+        </div>
+      </aside>
+
+      <section class="board-wrap">
+        <div class="board-frame">
+          <canvas id="gameCanvas" width="300" height="600" aria-label="Tabuleiro do jogo"></canvas>
+
+          <div id="overlay" class="overlay visible">
+            <div class="overlay-card">
+              <p id="overlayKicker" class="overlay-kicker">PRONTO?</p>
+              <h2 id="overlayTitle">Neon Blocks</h2>
+              <p id="overlayText">Encaixe as peças, complete linhas e tente bater seu recorde.</p>
+              <button id="startBtn" class="primary-btn" type="button">Jogar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="panel side-panel right-panel">
+        <div class="mini-card next-card">
+          <div class="mini-card-title">Próxima</div>
+          <canvas id="nextCanvas" width="140" height="140" aria-label="Próxima peça"></canvas>
+        </div>
+
+        <div class="controls-card">
+          <h2>Controles</h2>
+          <div class="control-row"><kbd>←</kbd><kbd>→</kbd><span>Mover</span></div>
+          <div class="control-row"><kbd>↑</kbd><span>Girar</span></div>
+          <div class="control-row"><kbd>↓</kbd><span>Descer</span></div>
+          <div class="control-row"><kbd>Espaço</kbd><span>Queda rápida</span></div>
+          <div class="control-row"><kbd>C</kbd><span>Guardar peça</span></div>
+          <div class="control-row"><kbd>P</kbd><span>Pausar</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="mobile-controls" aria-label="Controles para celular">
+      <button data-action="left" aria-label="Mover para esquerda">◀</button>
+      <button data-action="rotate" aria-label="Girar peça">↻</button>
+      <button data-action="right" aria-label="Mover para direita">▶</button>
+      <button data-action="down" aria-label="Mover para baixo">▼</button>
+      <button data-action="drop" class="wide" aria-label="Queda rápida">DROP</button>
+      <button data-action="hold" aria-label="Guardar peça">HOLD</button>
+    </section>
+
+    <footer>
+      <span>Feito com HTML, CSS e JavaScript puro.</span>
+      <button id="restartBtn" type="button" class="text-btn">Reiniciar partida</button>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
