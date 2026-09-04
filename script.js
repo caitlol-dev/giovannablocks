@@ -695,14 +695,20 @@ function handleAction(action) {
 
 document.addEventListener("keydown", event => {
   const key = event.key.toLowerCase();
-  const handledKeys = ["arrowleft", "arrowright", "arrowdown", "arrowup", " ", "c", "p"];
+  const handledKeys = [
+    "arrowleft", "arrowright", "arrowdown", "arrowup",
+    "a", "d", "s", "w",
+    " ", "c", "p"
+  ];
+
   if (handledKeys.includes(key)) event.preventDefault();
   if (key === "p") { togglePause(); return; }
   if (paused || gameOver || !running) return;
-  if (key === "arrowleft") movePiece(-1);
-  if (key === "arrowright") movePiece(1);
-  if (key === "arrowdown") softDrop(true);
-  if (key === "arrowup") rotatePiece();
+
+  if (key === "arrowleft" || key === "a") movePiece(-1);
+  if (key === "arrowright" || key === "d") movePiece(1);
+  if (key === "arrowdown" || key === "s") softDrop(true);
+  if (key === "arrowup" || key === "w") rotatePiece();
   if (key === " ") hardDrop();
   if (key === "c") holdPiece();
   draw();
